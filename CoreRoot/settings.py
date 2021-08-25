@@ -26,12 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qkl+xdr8aimpf-&x(mi7)dwt^-q77aji#j*d#02-5usa32r9!y'
+SECRET_KEY = env('SECRET_KEY', default='qkl+xdr8aimpf-&x(mi7)dwt^-q77aji#j*d#02-5usa32r9!y')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(env("DEBUG", default=1))
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = env("DJANGO_ALLOWED_HOSTS", default="*").split(" ")
 
 # Application definition
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -87,12 +88,12 @@ WSGI_APPLICATION = 'CoreRoot.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'coredb',
-        'USER': 'core',
-        'PASSWORD': '12345678',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'ENGINE': env('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
+        'NAME': env('DB_NAME', default='coredb'),
+        'USER': env('DB_USER', default='core'),
+        'PASSWORD': env('DB_PASSWORD', default='12345678'),
+        'HOST': env('DB_HOST', default='localhost'),
+        'PORT': env('DB_PORT', default='5432'),
     }
 }
 
