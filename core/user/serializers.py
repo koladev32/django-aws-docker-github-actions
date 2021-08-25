@@ -3,10 +3,8 @@ from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):
-    created = serializers.DateTimeField(read_only=True)
-    updated = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = User
-        fields = ['public_id', 'username', 'email', 'is_active', 'created', 'updated']
+        fields = ['username', 'email', 'is_active']
         read_only_field = ['is_active']
