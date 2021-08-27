@@ -40,3 +40,13 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+
+    - name: Deploying
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_AWS_SERVER_IP }}
+        username: ${{ secrets.SSH_SERVER_USER }}
+        passphrase: ${{ secrets.SSH_PASSPHRASE }}
+        script: |
+          whoami
+          ls -al
