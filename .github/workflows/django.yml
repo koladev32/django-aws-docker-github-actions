@@ -46,6 +46,7 @@ jobs:
       with:
         host: ${{ secrets.SSH_AWS_SERVER_IP }}
         username: ${{ secrets.SSH_SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
           whoami
