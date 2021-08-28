@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd /~app
+cd ~/app
 
 # Pulling  the changes
 
