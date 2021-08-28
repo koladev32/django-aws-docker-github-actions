@@ -16,7 +16,7 @@ services:
       - web
 
   certbot:
-    image: cerbot/cerbot
+    image: certbot/certbot
     restart: unless-stopped
     volumes:
       - ./.certbot/conf:/etc/letsencrypt
