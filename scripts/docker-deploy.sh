@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd /~app
+
 # Pulling  the changes
 
 git checkout main;
