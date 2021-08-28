@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -39,10 +38,15 @@ jobs:
         pip install -r requirements.txt
     - name: Run Tests
       run: |
-        python manage.py test
+        python /manage.py test
 
-    - name: Deploying
-      uses: appleboy/ssh-action@master
+  deploy:
+    name: Deploying
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: appleboy/ssh-action@master
+    - name: Deploying Application
       with:
         host: ${{ secrets.SSH_AWS_SERVER_IP }}
         username: ${{ secrets.SSH_SERVER_USER }}
