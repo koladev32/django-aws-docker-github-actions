@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ## Env Vars
 
 Make sure to provide the necessary environment variables. 
-Create a `.env` file in the root directory and follow the structure of the `env.example` file.
+Create a `.env` file in the root directory and follow the structure of the `.env.example` file.
 
 ## Migrate and Start the server
 
