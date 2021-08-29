@@ -3,25 +3,28 @@ services:
   nginx:
     container_name: core_web
     restart: on-failure
-    image: nginx:1.19.8
+    image: jonasal/nginx-certbot:latest
+    environment:
+      - CERTBOT_EMAIL
+      - STAGING
+    env_file:
+      - .env.nginx
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/certbot/conf:/etc/letsencrypt
-      - ./nginx/certbot/www:/var/www/certbot
-      - static_volume:/app/static
+      - nginx_secrets:/etc/letsencrypt
+      - ./nginx/user_conf.d:/etc/nginx/user_conf.d
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     depends_on:
       - web
 
-  certbot:
-    image: certbot/certbot
-    restart: unless-stopped
-    volumes:
-      - ./nginx/certbot/conf:/etc/letsencrypt
-      - ./nginx/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+#  certbot:
+#    image: certbot/certbot
+#    restart: unless-stopped
+#    volumes:
+#      - ./nginx/certbot/conf:/etc/letsencrypt
+#      - ./nginx/certbot/www:/var/www/certbot
+#    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   web:
     container_name: core_app
@@ -29,7 +32,7 @@ services:
     restart: always
     env_file: .env
     ports:
-      - 5000:5000
+      - "5000:5000"
     command: >
       sh -c " python manage.py migrate &&
           gunicorn CoreRoot.wsgi:application --bind 0.0.0.0:5000"
@@ -48,3 +51,4 @@ services:
 volumes:
   static_volume:
   postgres_data:
+  nginx_secrets:
