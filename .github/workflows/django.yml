@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -42,7 +42,7 @@ jobs:
 
   deploy:
     name: Deploying
-    needs: [build]
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
     - name: Deploying Application
