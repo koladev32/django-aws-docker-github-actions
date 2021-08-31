@@ -4,9 +4,6 @@ services:
     container_name: core_web
     restart: on-failure
     image: jonasal/nginx-certbot:latest
-    environment:
-      - CERTBOT_EMAIL
-      - STAGING
     env_file:
       - .env.nginx
     volumes:
